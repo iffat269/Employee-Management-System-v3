@@ -1,4 +1,4 @@
-#Employee Management System
+#Employee Management System#
 This is an Employee Management System built using ASP.NET Core Razor Pages and Entity Framework Core with SQL Server for data persistence. The application allows the management of employee data, including creating, reading, updating, and deleting employees, as well as associating employees with departments.
 
 Table of Contents
