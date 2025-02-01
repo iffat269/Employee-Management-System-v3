@@ -1,0 +1,8 @@
+﻿@page "{id:int?}"
+@using Domain
+@using Manager
+@model Employee_Management_System.Pages.DepartmentManagements.DepartmentManagementsAddModel
+@{
+}
+<h2>@(Model.Department.Id == 0 ? "Add New DepartmentManagements" : "Edit DepartmentManagements")</h2>
+@await Html.PartialAsync("_DepartmentManagementsCreateUpdatePartial", Model.Department)

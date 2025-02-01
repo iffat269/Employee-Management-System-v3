@@ -1,0 +1,43 @@
+﻿@page "{pageNumber:int?}"
+@using Manager
+@inject IPerformanceReview m_PerformanceReview
+@model AveragePerformanceScoreListModel
+@{
+    ViewData["Title"] = "Average Performance Score List";
+}
+<h2>Average Performance Scores</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Department ID</th>
+            <th>Department Name</th>
+            <th>Average Performance Score</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var score in Model.AveragePerformanceScores)
+        {
+            <tr>
+                <td>@score.DepartmentId</td>
+                <td>@score.DepartmentName</td>
+                <td>@score.AveragePerformanceScore</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="pagination justify-content-center">
+    @if (Model.CurrentPage > 1)
+    {
+        <a href="@Url.Page("/AveragePerformanceScores/AveragePerformanceScoreList", new { pageNumber = Model.CurrentPage - 1 })" class="btn btn-primary btn-sm">&laquo; Previous</a>
+    }
+    @for (var i = 1; i <= Model.TotalPages; i++)
+    {
+        <a href="@Url.Page("/AveragePerformanceScores/AveragePerformanceScoreList", new { pageNumber = i })" class="btn btn-secondary btn-sm @((i == Model.CurrentPage) ? "active" : "")">@i</a>
+    }
+    @if (Model.CurrentPage < Model.TotalPages)
+    {
+        <a href="@Url.Page("/AveragePerformanceScores/AveragePerformanceScoreList", new { pageNumber = Model.CurrentPage + 1 })" class="btn btn-primary btn-sm">Next &raquo;</a>
+    }
+</div>

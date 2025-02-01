@@ -1,0 +1,67 @@
+﻿@using Domain
+@using Manager
+@model PerformanceReview
+@inject IPerformanceReview m_PerformanceReview
+@inject IEmployeeManager m_Employee
+
+@{
+    var isUpdateMode = Model.Id > 0;
+    var EmployeeNames = m_Employee.GetAllEmployeeInformation();
+    var EmployeeName = "";
+    if (Model.Id > 0)
+    {
+        //var DepartmentNames = m_Department.GetAllDepartmentname();
+        EmployeeName = (from d in EmployeeNames
+                        where d.Id == Model.EmployeeId // Replace with the actual ID or parameter
+                       select d.EmployeeName).FirstOrDefault();
+    }
+}
+
+<div class="card">
+    <div class="card-body">
+        <form method="post">
+            <input type="hidden" name="PerformanceReview.Id" value="@Model.Id" />
+            <div class="form-group">
+                <label for="ReviewDate">Review Date</label>
+                <input type="date" class="form-control" id="ReviewDate" name="PerformanceReview.ReviewDate" value="@Model.ReviewDate.ToString("yyyy-MM-dd")" />
+            </div>
+            <div class="form-group">
+                <label for="EmployeeId">Employee Name</label>
+                <select class="form-control" id="EmployeeId" name="PerformanceReview.EmployeeId" required>
+                    @if (Model.Id > 0)
+                    {
+                        <option value="@Model.EmployeeId">@EmployeeName</option>
+                    }
+                    else
+                    {
+                        <option value="">Select Department</option>
+                    }
+                    @foreach (var Employee in EmployeeNames)
+                    {
+                        <option value="@Employee.Id">@Employee.EmployeeName</option>
+                    }
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="ReviewScore">Review Score (1-10)</label>
+                <input type="number" class="form-control" id="ReviewScore" name="PerformanceReview.ReviewScore" value="@Model.ReviewScore" />
+            </div>
+           
+
+            <div class="form-group">
+                <label for="ReviewNotes">Review Notes</label>
+                <textarea class="form-control" id="ReviewNotes" name="PerformanceReview.ReviewNotes">@Model.ReviewNotes</textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                @(isUpdateMode ? "Update" : "Add") PerformanceReview
+            </button>
+
+            @if (isUpdateMode)
+            {
+                <button type="submit" class="btn btn-danger" formaction="/Departments/Delete/@Model.Id">Delete</button>
+            }
+        </form>
+    </div>
+</div>

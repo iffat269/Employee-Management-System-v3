@@ -1,0 +1,8 @@
+﻿@page "{id:int?}"
+@using Domain
+@using Manager
+@model Employee_Management_System.Pages.PerformanceReviews.PerformanceReviewAddModel
+@{
+}
+<h2>@(Model.PerformanceReview.Id == 0 ? "Add New Performance Reviews" : "Edit Performance Reviews")</h2>
+@await Html.PartialAsync("_PerformanceReviewsCreateUpdatePartial", Model.PerformanceReview)

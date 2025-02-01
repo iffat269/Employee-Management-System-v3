@@ -1,0 +1,8 @@
+﻿@page "{id:int?}"
+@using Domain
+@using Manager
+@model Employee_Management_System.Pages.EmployeeCRUD.EmployeeAddModel
+
+<h2>@(Model.NewEmployee.Id == 0 ? "Add New Employee" : "Edit Employee")</h2>
+@* <input type="hidden" asp-for="NewEmployee.Id" /> *@
+@await Html.PartialAsync("_EmployeeCreateUpdatePartial", Model.NewEmployee)

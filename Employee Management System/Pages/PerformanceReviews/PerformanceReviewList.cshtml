@@ -1,0 +1,54 @@
+﻿@page "{pageNumber:int?}"
+@using Manager
+@inject IPerformanceReview m_PerformanceReview
+@model Employee_Management_System.Pages.PerformanceReviews.PerformanceReviewListModel
+
+@{
+    ViewData["Title"] = "Performance Review List";
+}
+
+<h2>Performance Review</h2>
+
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Department Name</th>
+            <th>Manager Name</th>
+            <th>Review Score</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var performanceReview in Model.PerformanceReviews)
+        {
+            <tr>
+                <td>@performanceReview.PerformanceReviewId</td>
+                <td>@performanceReview.DepartmentName</td>
+                <td>@performanceReview.EmployeeName</td>
+                <td>@performanceReview.ReviewScore</td>
+                <td>
+                    <a href="/PerformanceReviews/PerformanceReviewsAdd/@performanceReview.PerformanceReviewId" class="btn btn-warning">Edit</a>
+                   @* // <a href="/PerformanceReviews/PerformanceReviewsAdd/@performanceReview.Id" class="btn btn-danger">Delete</a> *@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="pagination justify-content-center">
+    @if (Model.CurrentPage > 1)
+    {
+        <a href="@Url.Page("/PerformanceReviews/PerformanceReviewList", new { pageNumber = Model.CurrentPage - 1 })" class="btn btn-primary btn-sm">&laquo; Previous</a>
+
+    }
+    @for (var i = 1; i <= Model.TotalPages; i++)
+    {
+        <a href="@Url.Page("/PerformanceReviews/PerformanceReviewList", new { pageNumber = i })" class="btn btn-secondary btn-sm @((i == Model.CurrentPage) ? "active" : "")">@i</a>
+    }
+    @if (Model.CurrentPage < Model.TotalPages)
+    {
+        <a href="@Url.Page("/PerformanceReviews/PerformanceReviewList", new { pageNumber = Model.CurrentPage + 1 })" class="btn btn-primary btn-sm">Next &raquo;</a>
+    }
+</div>

@@ -1,0 +1,53 @@
+﻿@page "{pageNumber:int?}"
+@using Manager
+@inject IDepartmentManager m_Department
+@model Employee_Management_System.Pages.DepartmentManagements.DepartmentManagementListModel
+
+@{
+    ViewData["Title"] = "Department List";
+}
+<h2>Department List</h2>
+<div>
+    <a href="/DepartmentManagements/DepartmentManagementsAdd" class="btn btn-success">Add Department Managements</a>
+</div>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Department Name</th>
+            <th>Manager Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var department in Model.DepartmentManagement)
+        {
+            <tr>
+                <td>@department.DepartmentId</td>
+                <td>@department.DepartmentName</td>
+                <td>@department.EmployeeName</td>
+                <td>
+                    <a href="/DepartmentManagements/DepartmentManagementsAdd/@department.DepartmentId" class="btn btn-warning">Edit</a>
+                    <a href="/DepartmentManagements/DepartmentManagementsAdd/@department.DepartmentId" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="pagination justify-content-center">
+    @if (Model.CurrentPage > 1)
+    {
+        <a href="@Url.Page("/DepartmentManagements/DepartmentManagementList", new { pageNumber = Model.CurrentPage - 1 })" class="btn btn-primary btn-sm">&laquo; Previous</a>
+
+    }
+    @for (var i = 1; i <= Model.TotalPages; i++)
+    {
+        <a href="@Url.Page("/DepartmentManagements/DepartmentManagementList", new { pageNumber = i })" class="btn btn-secondary btn-sm @((i == Model.CurrentPage) ? "active" : "")">@i</a>
+    }
+    @if (Model.CurrentPage < Model.TotalPages)
+    {
+        <a href="@Url.Page("/DepartmentManagements/DepartmentManagementList", new { pageNumber = Model.CurrentPage + 1 })" class="btn btn-primary btn-sm">Next &raquo;</a>
+    }
+</div>

@@ -1,0 +1,54 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>Employee_Management_System</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="Pages\AveragePerformanceScoreList.cshtml" />
+    <Content Remove="Pages\EmployeeCRUD\EmployeeDeleteInformation.cshtml" />
+    <Content Remove="Pages\Shared\_sideMenu.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Domain\Domain.csproj" />
+    <ProjectReference Include="..\Manager\Manager.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Pages\Shared\_sideMenu.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Pages\AveragePerformanceScoreList.cshtml" />
+    <_ContentIncludedByDefault Remove="Pages\EmployeeCRUD\EmployeeDeleteInformation.cshtml" />
+    <_ContentIncludedByDefault Remove="Pages\Shared\_sideMenu.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Pages\AveragePerformanceScores\AveragePerformanceScoreList.cshtml" />
+    <None Include="Pages\EmployeeCRUD\EmployeeDeleteInformation.cshtml" />
+    <None Include="Pages\_sideMenu.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Pages\EmployeeCRUD\EmployeeDeleteInformation.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Pages\AveragePerformanceScoreList.cshtml" />
+  </ItemGroup>
+
+</Project>

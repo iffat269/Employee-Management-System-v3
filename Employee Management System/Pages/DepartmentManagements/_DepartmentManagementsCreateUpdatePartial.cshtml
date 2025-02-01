@@ -1,0 +1,59 @@
+﻿@using Domain
+@using Manager
+@model DepartmentManagement
+@inject IEmployeeManager m_Employee
+
+@{
+    var isUpdateMode = Model.Id > 0;
+    var EmployeeNames = m_Employee.GetAllEmployeeInformation();
+    var ManagerName = "";
+    if (Model.Id > 0)
+    {
+        //var DepartmentNames = m_Department.GetAllDepartmentname();
+        ManagerName = (from d in EmployeeNames
+                       where d.Id == Model.Id // Replace with the actual ID or parameter
+                       select d.EmployeeName).FirstOrDefault();
+    }
+}
+<div class="card">
+    <div class="card-body"> 
+        <form method="post">
+            <input type="hidden" name="Department.Id" value="@Model.Id" />
+                <div class="form-group">
+                    <label for="DepartmentName">Department Name</label>
+                    <input type="text" class="form-control" id="DepartmentName" name="Department.DepartmentName" value="@Model.DepartmentName" required />
+                </div>
+                <div class="form-group">
+                <label for="ManagerId">Manager Name</label>
+                <select class="form-control" id="ManagerId" name="Department.ManagerID" required>
+                        @if (Model.Id > 0)
+                        {
+                        <option value="Department.Id">@ManagerName</option>
+                        }
+                        else
+                        {
+                            <option value="">Select Department</option>
+                        }
+                    @foreach (var Employee in EmployeeNames)
+                        {
+                        <option value="@Employee.Id">@Employee.EmployeeName</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="Budget">Budget</label>
+                    <input type="number" class="form-control" id="Budget" name="Department.Budget" value="@Model.Budget" required />
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    @(isUpdateMode ? "Update" : "Add") Department
+                </button>
+
+                @if (isUpdateMode)
+                {
+                    <button type="submit" class="btn btn-danger" formaction="/Departments/Delete/@Model.Id">Delete</button>
+                 }
+        </form>
+    </div>
+</div>
