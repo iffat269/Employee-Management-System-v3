@@ -69,13 +69,14 @@ dotnet restore
 }
 ```
 
-### 4. Apply Migrations
+### 4. Apply Migrations and run Store proecedure
 
 Run the following command to apply the migrations and create the database schema:
 
 ```bash
 dotnet ef database update
 ```
+The MySQL stored procedures (SP) are included in the domain file and can be executed directly within Visual Studio using its built-in functionality
 
 ### 5. Run the Application
 
